@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Depoimentos{% endblock %}
+{% block content %}
+<style>
+    body {
+        background-color: #fffafa;
+        font-family: 'Segoe UI', sans-serif;
+        color: #444;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 40px;
+        color: #cc6699;
+        font-weight: bold;
+    }
+
+    .depoimento-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+        padding: 40px;
+    }
+
+    .card {
+        background-color: #ffe6f0;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(204, 102, 153, 0.1);
+        padding: 20px;
+        width: 280px;
+        text-align: center;
+    }
+
+    .card img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 15px;
+    }
+
+    .card h5 {
+        color: #b35680;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .card p {
+        font-size: 0.95rem;
+    }
+
+    .stars {
+        color: #ffc107;
+        margin-top: 10px;
+    }
+</style>
+
+<h2>Depoimentos de Nossas Clientes</h2>
+<div class="depoimento-container">
+    {% for d in depoimentos %}
+        <div class="card">
+            {% if d.imagem %}
+                <img src="{{ d.imagem.url }}" alt="{{ d.nome }}">
+            {% else %}
+                <img src="{% static 'avatar-feminino.png' %}" alt="Avatar padrão">
+            {% endif %}
+            <h5>{{ d.nome }}</h5>
+            <p>{{ d.comentario }}</p>
+            <div class="stars">
+                {% for i in "12345"|slice:":d.nota"|make_list %}
+                    ★
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

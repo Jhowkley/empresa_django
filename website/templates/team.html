@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Equipe{% endblock %}
+{% block content %}
+<h2>Nossa Equipe</h2>
+<div class="row">
+    {% for member in team_members %}
+        <div class="col-md-4 text-center">
+            {% if member.image %}
+                <img src="{{ member.image.url }}" class="rounded-circle" alt="{{ member.name }}" width="150" height="150">
+            {% else %}
+                <img src="{% static 'image.png' %}" class="rounded-circle" alt="Avatar Padrão" width="150" height="150">
+            {% endif %}
+            <h4>{{ member.name }}</h4>
+            <p>{{ member.role }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
